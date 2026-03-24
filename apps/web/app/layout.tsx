@@ -13,7 +13,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Kairo Signals Demo",
-  description: "Interactive demo application for the @kairo/signals package",
+  description: "Interactive demo application for the @chrrrs/signals package",
 };
 
 export default function RootLayout({

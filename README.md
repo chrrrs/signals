@@ -24,9 +24,9 @@ Features include synchronous signals, computed signals with auto-tracking, async
 ## **📦 Installation**
 
 ```
-npm install my-signals-lib
+npm install @chrrrs/signals
 # or
-yarn add my-signals-lib
+yarn add @chrrrs/signals
 ```
 
 ---
@@ -36,7 +36,7 @@ yarn add my-signals-lib
 ### **Create a Signal**
 
 ```
-import { createSignal } from "@kairo/signals";
+import { createSignal } from "@chrrrs/signals";
 
 export const count = createSignal(0);
 ```
@@ -44,7 +44,7 @@ export const count = createSignal(0);
 ### **React Hook**
 
 ```
-import { useSignal } from "@kairo/signals";
+import { useSignal } from "@chrrrs/signals";
 import { count } from "./store";
 
 export function Counter() {
@@ -66,7 +66,7 @@ export function Counter() {
 Auto-tracked dependencies — no manual deps required.
 
 ```
-import { computed } from "@kairo/signals";
+import { computed } from "@chrrrs/signals";
 import { count } from "./store";
 
 const double = computed(() => count.get() * 2);
@@ -81,7 +81,7 @@ const doubled = useSignal(double);
 An async signal is available, work-in-progress on the useAsyncSignal hook and Suspense examples
 
 ```
-import { createAsyncSignal } from "@kairo/signals";
+import { createAsyncSignal } from "@chrrrs/signals";
 
 export const userSignal = createAsyncSignal(async () => {
   const res = await fetch("/api/user");
@@ -98,7 +98,7 @@ export const userSignal = createAsyncSignal(async () => {
 Subscribe to part of a signal to optimize re-renders:
 
 ```
-import { useSignalSelector } from "@kairo/signals";
+import { useSignalSelector } from "@chrrrs/signals";
 import { userSignal } from "./store";
 
 const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
@@ -119,7 +119,7 @@ const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
 ## **How It Differs From Larger Libraries:**
 
 
-| Feature                       | `@kairo/signals`                                 | Zustand / Jotai / Valtio                                 |
+| Feature                       | `@chrrrs/signals`                                | Zustand / Jotai / Valtio                                 |
 | ----------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
 | Size & simplicity             | Minimal, easy-to-read API                        | Larger, more concepts to learn                           |
 | Auto-tracked computed signals | ✅ Recomputes automatically based on dependencies | Zustand: manual derived state Jotai: manual dependencies |

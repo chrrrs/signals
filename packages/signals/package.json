@@ -1,5 +1,5 @@
 {
-  "name": "@kairo/signals",
+  "name": "@chrrrs/signals",
   "version": "0.1.0",
   "description": "Minimal React 19 signals for local state and derived values.",
   "keywords": [
@@ -12,12 +12,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrrrs/kairo.git",
+    "url": "git+https://github.com/chrrrs/signals.git",
     "directory": "packages/signals"
   },
-  "homepage": "https://github.com/chrrrs/kairo/tree/main/packages/signals",
+  "homepage": "https://github.com/chrrrs/signals/tree/main/packages/signals",
   "bugs": {
-    "url": "https://github.com/chrrrs/kairo/issues"
+    "url": "https://github.com/chrrrs/signals/issues"
   },
   "type": "module",
   "main": "dist/index.js",

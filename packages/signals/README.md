@@ -1,4 +1,4 @@
-# @kairo/signals
+# @chrrrs/signals
 
 Minimal React 19 signals for local state and derived values.
 
@@ -15,7 +15,7 @@ export const count = createSignal(0);
 Use:
 
 ```ts
-import { createSignal } from "@kairo/signals";
+import { createSignal } from "@chrrrs/signals";
 
 export function createState() {
   return {

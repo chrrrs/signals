@@ -20,7 +20,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@kairo/signals':
+      '@chrrrs/signals':
         specifier: workspace:*
         version: link:../../packages/signals
       next:

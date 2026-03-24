@@ -8,7 +8,7 @@ import {
   useSignalSelector,
   type Computed,
   type Signal,
-} from "@kairo/signals";
+} from "@chrrrs/signals";
 
 import styles from "./page.module.css";
 
@@ -130,7 +130,7 @@ function HeroSection() {
         <p className={styles.kicker}>Kairo / Signals demo</p>
         <h1>Reactive state with visible edges.</h1>
         <p className={styles.intro}>
-          This page is driven by `@kairo/signals`: direct writes, lazy computed values, a
+          This page is driven by `@chrrrs/signals`: direct writes, lazy computed values, a
           selector-backed probe, and an async advisory feed. No reducer boilerplate, no hidden data
           layer.
         </p>
