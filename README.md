@@ -1,9 +1,4 @@
-# Kairō — Reactive Signals for React
-
-> Kairō, Japanese meaning a covered corridor originally built around the most sacred area of a Buddhist temple and Shinto shrines
-> — Wikipedia
-
----
+# Reactive Signals for React
 
 A tiny, fully typed and zero-dependency signals library for React 19, inspired by SolidJS and Apollo.
 Features include synchronous signals, computed signals with auto-tracking, async signals with Suspense, selector hooks, and batching.
@@ -118,16 +113,14 @@ const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
 
 ## **How It Differs From Larger Libraries:**
 
-
-| Feature                       | `@chrrrs/signals`                                | Zustand / Jotai / Valtio                                 |
-| ----------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
-| Size & simplicity             | Minimal, easy-to-read API                        | Larger, more concepts to learn                           |
+| Feature                       | `@chrrrs/signals`                                 | Zustand / Jotai / Valtio                                 |
+| ----------------------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| Size & simplicity             | Minimal, easy-to-read API                         | Larger, more concepts to learn                           |
 | Auto-tracked computed signals | ✅ Recomputes automatically based on dependencies | Zustand: manual derived state Jotai: manual dependencies |
 | Async + Suspense integration  | ✅ Built-in support via `createAsyncSignal`       | Jotai: supports async atoms, requires extra boilerplate  |
 | Batching                      | ✅ Out-of-the-box                                 | Zustand: requires middleware or manual batching          |
 | Tree-shakeable                | ✅ Fully modular                                  | Varies                                                   |
 | Learning / debugging          | ✅ Small, readable codebase                       | Larger codebases, more abstractions                      |
-
 
 > **Intended audience:** Developers who want **small, reactive primitives,** not a full-blown state management framework.
 
