@@ -1,6 +1,24 @@
 {
   "name": "@kairo/signals",
   "version": "0.1.0",
+  "description": "Minimal React 19 signals for local state and derived values.",
+  "keywords": [
+    "react",
+    "signals",
+    "state",
+    "typescript",
+    "suspense"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrrrs/kairo.git",
+    "directory": "packages/signals"
+  },
+  "homepage": "https://github.com/chrrrs/kairo/tree/main/packages/signals",
+  "bugs": {
+    "url": "https://github.com/chrrrs/kairo/issues"
+  },
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,10 +32,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -b",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "build": "npm run clean && tsc -b",
     "check-types": "tsc --noEmit",
     "test": "vitest",
     "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react": "^19.0.0"
