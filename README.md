@@ -12,13 +12,12 @@ Features include synchronous signals, computed signals with auto-tracking, async
 
 ## ⚡ Features
 
-• ✅ Simple reactive signals (createSignal)
-• ✅ Auto-tracked computed signals (computed)
-• ✅ React hooks (useSignal, useSignalSelector)
-• ✅ [WIP] Async signals with Suspense support (createAsyncSignal, useAsyncSignal)
-• ✅ Global shared signals (like Apollo cache)
-• ✅ Fully typed and tree-shakeable
-• ✅ Tiny footprint (<1kb gzipped)
+✅ Simple reactive signals (createSignal)  
+✅ Auto-tracked computed signals (computed)  
+✅ React hooks (useSignal, useSignalSelector)  
+✅ [WIP] Async signals with Suspense support (createAsyncSignal, useAsyncSignal)  
+✅ Global shared signals (like Apollo cache)  
+✅ Fully typed and tree-shakeable
 
 ---
 
@@ -109,24 +108,26 @@ const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
 
 ## **✅ Best Practices**
 
-    1.	Immutable values: Always .set() new values; do not mutate objects inside a signal.
-    2.	Use signals for shared state: Component-local UI state is fine in useState.
-    3.	Use async signals for initial fetch: Combine with Suspense, but don’t wrap frequently changing data.
-    4.	Batch updates: Use batch() when updating multiple signals together.
-    5.	Selector hook: Use useSignalSelector to minimize unnecessary re-renders when only part of the signal matters.
+1. Immutable values: Always .set() new values; do not mutate objects inside a signal.
+2. Use signals for shared state: Component-local UI state is fine in useState.
+3. Use async signals for initial fetch: Combine with Suspense, but don’t wrap frequently changing data.
+4. Batch updates: Use batch() when updating multiple signals together.
+5. Selector hook: Use useSignalSelector to minimize unnecessary re-renders when only part of the signal matters.
 
 ---
 
 ## **How It Differs From Larger Libraries:**
 
-| Feature                       | `@kairo/signals`                                  | Zustand / Jotai / Valtio                                    |
-| ----------------------------- | ------------------------------------------------- | ----------------------------------------------------------- |
-| Size & simplicity             | Minimal (~1kb gzipped), easy-to-read API          | Larger, more concepts to learn                              |
-| Auto-tracked computed signals | ✅ Recomputes automatically based on dependencies | Zustand: manual derived state<br>Jotai: manual dependencies |
-| Async + Suspense integration  | ✅ Built-in support via `createAsyncSignal`       | Jotai: supports async atoms, requires extra boilerplate     |
-| Batching                      | ✅ Out-of-the-box                                 | Zustand: requires middleware or manual batching             |
-| Tree-shakeable                | ✅ Fully modular                                  | Varies                                                      |
-| Learning / debugging          | ✅ Small, readable codebase                       | Larger codebases, more abstractions                         |
+
+| Feature                       | `@kairo/signals`                                 | Zustand / Jotai / Valtio                                 |
+| ----------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
+| Size & simplicity             | Minimal, easy-to-read API                        | Larger, more concepts to learn                           |
+| Auto-tracked computed signals | ✅ Recomputes automatically based on dependencies | Zustand: manual derived state Jotai: manual dependencies |
+| Async + Suspense integration  | ✅ Built-in support via `createAsyncSignal`       | Jotai: supports async atoms, requires extra boilerplate  |
+| Batching                      | ✅ Out-of-the-box                                 | Zustand: requires middleware or manual batching          |
+| Tree-shakeable                | ✅ Fully modular                                  | Varies                                                   |
+| Learning / debugging          | ✅ Small, readable codebase                       | Larger codebases, more abstractions                      |
+
 
 > **Intended audience:** Developers who want **small, reactive primitives,** not a full-blown state management framework.
 
