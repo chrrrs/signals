@@ -127,7 +127,7 @@ function HeroSection() {
   return (
     <section className={styles.hero}>
       <div className={styles.heroCopy}>
-        <p className={styles.kicker}>Kairo / Signals demo</p>
+        <p className={styles.kicker}>Signals demo</p>
         <h1>Reactive state with visible edges.</h1>
         <p className={styles.intro}>
           This page is driven by `@chrrrs/signals`: direct writes, lazy computed values, a

@@ -12,7 +12,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kairo Signals Demo",
+  title: "Signals Demo",
   description: "Interactive demo application for the @chrrrs/signals package",
 };
 
