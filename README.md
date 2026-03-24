@@ -1,159 +1,143 @@
-# Turborepo starter
+# Kairō — Reactive Signals for React
 
-This Turborepo starter is maintained by the Turborepo core team.
+> Kairō, Japanese meaning a covered corridor originally built around the most sacred area of a Buddhist temple and Shinto shrines
+> — Wikipedia
 
-## Using this example
+---
 
-Run the following command:
+A tiny, fully typed and zero-dependency signals library for React 19, inspired by SolidJS and Apollo.
+Features include synchronous signals, computed signals with auto-tracking, async signals with Suspense, selector hooks, and batching.
 
-```sh
-npx create-turbo@latest
+---
+
+## ⚡ Features
+
+• ✅ Simple reactive signals (createSignal)
+• ✅ Auto-tracked computed signals (computed)
+• ✅ React hooks (useSignal, useSignalSelector)
+• ✅ [WIP] Async signals with Suspense support (createAsyncSignal, useAsyncSignal)
+• ✅ Global shared signals (like Apollo cache)
+• ✅ Fully typed and tree-shakeable
+• ✅ Tiny footprint (<1kb gzipped)
+
+---
+
+## **📦 Installation**
+
+```
+npm install my-signals-lib
+# or
+yarn add my-signals-lib
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## **🛠️ Basic Usage**
 
-### Apps and Packages
+### **Create a Signal**
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+```
+import { createSignal } from "@kairo/signals";
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+export const count = createSignal(0);
 ```
 
-Without global `turbo`, use your package manager:
+### **React Hook**
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```
+import { useSignal } from "@kairo/signals";
+import { count } from "./store";
+
+export function Counter() {
+  const value = useSignal(count);
+
+  return (
+    <div>
+      <p>{value}</p>
+      <button onClick={() => count.set(value + 1)}>Increment</button>
+    </div>
+  );
+}
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## **✨ Computed Signals**
 
-```sh
-turbo build --filter=docs
+Auto-tracked dependencies — no manual deps required.
+
+```
+import { computed } from "@kairo/signals";
+import { count } from "./store";
+
+const double = computed(() => count.get() * 2);
+
+const doubled = useSignal(double);
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+## **🚀 [WIP] Async Signals + Suspense**
+
+An async signal is available, work-in-progress on the useAsyncSignal hook and Suspense examples
+
+```
+import { createAsyncSignal } from "@kairo/signals";
+
+export const userSignal = createAsyncSignal(async () => {
+  const res = await fetch("/api/user");
+  return res.json();
+});
+
+<button onClick={() => void userSignal.load()}>Get user</button>
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## **🎯 Selector Hook**
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Subscribe to part of a signal to optimize re-renders:
 
-```sh
-cd my-turborepo
-turbo dev
+```
+import { useSignalSelector } from "@kairo/signals";
+import { userSignal } from "./store";
+
+const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+## **✅ Best Practices**
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+    1.	Immutable values: Always .set() new values; do not mutate objects inside a signal.
+    2.	Use signals for shared state: Component-local UI state is fine in useState.
+    3.	Use async signals for initial fetch: Combine with Suspense, but don’t wrap frequently changing data.
+    4.	Batch updates: Use batch() when updating multiple signals together.
+    5.	Selector hook: Use useSignalSelector to minimize unnecessary re-renders when only part of the signal matters.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo dev --filter=web
-```
+## **How It Differs From Larger Libraries:**
 
-Without global `turbo`:
+| Feature                       | `@kairo/signals`                                  | Zustand / Jotai / Valtio                                    |
+| ----------------------------- | ------------------------------------------------- | ----------------------------------------------------------- |
+| Size & simplicity             | Minimal (~1kb gzipped), easy-to-read API          | Larger, more concepts to learn                              |
+| Auto-tracked computed signals | ✅ Recomputes automatically based on dependencies | Zustand: manual derived state<br>Jotai: manual dependencies |
+| Async + Suspense integration  | ✅ Built-in support via `createAsyncSignal`       | Jotai: supports async atoms, requires extra boilerplate     |
+| Batching                      | ✅ Out-of-the-box                                 | Zustand: requires middleware or manual batching             |
+| Tree-shakeable                | ✅ Fully modular                                  | Varies                                                      |
+| Learning / debugging          | ✅ Small, readable codebase                       | Larger codebases, more abstractions                         |
 
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+> **Intended audience:** Developers who want **small, reactive primitives,** not a full-blown state management framework.
 
-### Remote Caching
+---
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## **Common questions and answers**
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### **Why not just use useState and context?**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+useState and context are great for component-local state. If you only need to store a single value, use useState. However, context will cause re-renders of all components that use the context, which can be wasteful, if multiple values or complex state logic is needed, so use signals for shared state instead.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### **Why no batching logic?**
 
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Batching is implicit in React 19. When you update a signal, all components that use that signal will re-render. No need for a batching function.
