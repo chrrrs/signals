@@ -111,6 +111,30 @@ const userName = useSignalSelector(userSignal, user => user?.name ?? "Guest");
 
 ---
 
+## **SSR note**
+
+Signals created at module scope are shared across SSR requests.
+
+Avoid:
+
+```ts
+export const count = createSignal(0);
+```
+
+Use:
+
+```ts
+import { createSignal } from "@chrrrs/signals";
+
+export function createState() {
+  return {
+    count: createSignal(0),
+  };
+}
+```
+
+---
+
 ## **How It Differs From Larger Libraries:**
 
 | Feature                       | `@chrrrs/signals`                                 | Zustand / Jotai / Valtio                                 |
